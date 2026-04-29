@@ -2,8 +2,6 @@
 
 ## Overview
 
-<!-- This repository contains the source code for an edge-computing, Android-based application designed to bridge the gap between automated inspection path planning and reliable, human-in-the-loop manual mission execution.  -->
-
 Unmanned Aerial Systems (UAS) are standard tools for infrastructure inspection. However, fully autonomous flights are often restricted by regulatory constraints (e.g., FAA Part 107) and physical limitations like GNSS-denied environments. This framework allows human pilots to maintain manual control of the drone while providing **Augmented Reality (AR) visual guidance** and **real-time 3D inspection quality monitoring**. This ensures complex pre-planned trajectories are executed accurately, resulting in high-quality data for Structure-from-Motion (SfM) 3D reconstruction.
 
 This work is based on the research paper: *"A Human-in-the-Loop Assistive Navigation Framework for UAS-Based Infrastructure Visual Inspection"* by Martin Xu, Yuxiang Zhao, Zixin Wang, and Mohamad Alipour.
@@ -88,41 +86,3 @@ Both CSV files share the following column structure:
 * `x, y, z`: The localized 3D spatial coordinates (in meters) converted from the global RTK GNSS data.
 * `qx, qy, qz, qw`: The camera's attitude/orientation represented as a quaternion, derived from the drone's gimbal and magnetometer. 
 ---
-<!-- ---
-
-## Getting Started
-
-### Prerequisites
-1. Android Studio (Latest version recommended).
-2. A registered developer account on the DJI Developer Portal to obtain an SDK App Key.
-3. An OBJ file of the target structure placed in the `assets/` folder.
-
-### Installation
-1. Clone this repository.
-2. Open the project in Android Studio.
-3. Insert your DJI SDK API Key into the `AndroidManifest.xml`.
-4. Update the `originUTM` offsets in `LocationManager.kt` to match your specific inspection site's global coordinates.
-5. Provide your pre-planned flight trajectory in `MainActivity.kt` (`rawViewpoints` array).
-6. Build and deploy the APK to the DJI Smart Controller.
-
-### Workflow
-1. **Takeoff & RTK Lock:** Ensure the drone has a strong RTK/GPS lock (preferably ≥ 6 satellites) before initiating the application.
-2. **Navigation:** Follow the AR guiding lanes and off-screen arrows to fly toward the first waypoint.
-3. **Alignment:** Stop the drone when the pulsing beacon distance indicator turns green. Use the 3D model reference to align the camera.
-4. **Capture:** Trigger the camera shutter. The system will automatically register the exact pose and update the coverage and uncertainty 3D meshes.
-5. **Evaluate:** Check the on-screen mesh for coverage gaps (cyan/pink areas) and take supplemental photos if necessary before using the UI controls to proceed to the next waypoint.
-
---- -->
-
-<!-- ## Academic Citation
-
-If you utilize this code or framework in your research, please cite the associated paper:
-
-```bibtex
-@article{xu2026human,
-  title={A Human-in-the-Loop Assistive Navigation Framework for UAS-Based Infrastructure Visual Inspection},
-  author={Xu, Martin and Zhao, Yuxiang and Wang, Zixin and Alipour, Mohamad},
-  journal={TBD},
-  year={2026},
-  publisher={TBD}
-} -->
