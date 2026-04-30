@@ -2,7 +2,7 @@
 
 ## Overview
 
-Unmanned Aerial Systems (UAS) are standard tools for infrastructure inspection. However, fully autonomous flights are often restricted by regulatory constraints (e.g., FAA Part 107) and physical limitations like GNSS-denied environments. This framework allows human pilots to maintain manual control of the drone while providing **Augmented Reality (AR) visual guidance** and **real-time 3D inspection quality monitoring**. This ensures complex pre-planned trajectories are executed accurately, resulting in high-quality data for Structure-from-Motion (SfM) 3D reconstruction.
+Unmanned Aerial Systems (UAS) are standard tools for infrastructure inspection. However, fully autonomous flights are often restricted by regulatory constraints. This framework allows human pilots to maintain manual control of the drone while providing **Augmented Reality (AR) visual guidance** and **real-time 3D inspection quality monitoring**. This ensures complex pre-planned trajectories are executed accurately, resulting in high-quality data for Structure-from-Motion (SfM) 3D reconstruction.
 
 This work is based on the research paper: *"A Human-in-the-Loop Assistive Navigation Framework for UAS-Based Infrastructure Visual Inspection"* by Martin Xu, Yuxiang Zhao, Zixin Wang, and Mohamad Alipour.
 
@@ -12,7 +12,7 @@ This work is based on the research paper: *"A Human-in-the-Loop Assistive Naviga
 
 ### 1. AR-Assisted Visual Navigation
 The application projects 3D geographic coordinates onto the drone's 2D First-Person View (FPV) using real-time RTK telemetry and camera attitude matrices.
-* **On-Screen Waypoints:** A dynamic, pulsing red beacon indicates the target viewpoint, scaling in size as the drone approaches. The distance indicator turns green when the target threshold (< 2.5m) is reached.
+* **On-Screen Waypoints:** A dynamic, pulsing red beacon indicates the target viewpoint, scaling in size as the drone approaches. The distance indicator turns green when the target threshold (< 0.5m) is reached.
 * **Off-Screen Guidance:** If the waypoint is outside the camera's Field of View (FOV), the system renders a dynamic directional arrow and a guiding lane at the edge of the screen to guide the pilot's yaw and pitch.
 * **3D Synthetic Alignment:** Renders a virtual view of the 3D target structure aligned with the current viewpoint to help the pilot manually adjust the drone/gimbal orientation before capture.
 
@@ -29,7 +29,7 @@ All spatial calculations, 3D-to-2D projections, and mesh updates occur locally o
 ## System Architecture
 
 * **Sensor & Data Layer:** Ingests pre-computed trajectory data, drone RTK GNSS, gimbal attitude, and live camera feed via the DJI Mobile SDK (MSDK v5).
-* **Application Layer:** * `LocationManager.kt`: Subscribes to MSDK callbacks, capturing state and shutter events, and transforming WGS-84 to local UTM coordinates using Proj4J.
+* **Application Layer:** * `LocationManager.kt`: Subscribes to MSDK calls, capturing state and shutter events, and transforming WGS-84 to local UTM coordinates using Proj4J.
   * `WaypointProjection.kt`: Handles the mathematical projection of World ENU coordinates into the drone's body frame and subsequently into the 2D camera pixel space.
   * `CoverageManager.kt`: Loads the structural OBJ file, calculates FOV visibility constraints, updates H-matrices for uncertainty, and groups the mesh into visual redundancy layers.
 * **UI Layer:** Renders the AR overlays (`WaypointOverlayWidget.kt`) and 3D Sceneform meshes (`DynamicCoverageMesh.kt`, `DynamicUncertaintyMesh.kt`) without blocking the main thread.
@@ -62,9 +62,9 @@ The application provides live 3D feedback mapped directly over the target struct
 * `Level 6+`: Highly Redundant (Deep Maroon)
 
 **Triangulation Uncertainty Map (`DynamicUncertaintyMesh.kt`):**
-* `High Uncertainty`: Bright Cyan
-* `Medium Uncertainty`: True Sky Blue
-* `Very Low Uncertainty`: Deep Blue
+* `High Uncertainty`: Light blue
+* `Medium Uncertainty`: Sky blue
+* `Very Low Uncertainty`: Navy blue
 
 ---
 
@@ -74,7 +74,7 @@ To validate the assistive navigation framework, on-site reconstruction missions 
 
 The sample dataset containing the original photos captured during these flight tests, along with their embedded EXIF metadata (which the application utilizes for real-time coverage evaluation), is publicly available.
 
-* 🔗 **[Flight Test Photos & EXIF Data (Google Drive)](https://drive.google.com/drive/folders/1mHXNIUlSdyawh08TLqmvsoyvGBiv1ltC?usp=share_link)**
+**[Flight Test Photos & EXIF Data (Google Drive)](https://drive.google.com/drive/folders/1mHXNIUlSdyawh08TLqmvsoyvGBiv1ltC?usp=share_link)**
 
 ## Telemetry & Pose Data (CSV)
 In addition to the raw photos, the dataset includes localized spatial data extracted during the flight:
